@@ -1,3 +1,5 @@
-export default function start(): void {
-  console.log('i am here')
+import { Mesh } from './Mesh'
+
+export default function start(signalhub: string): Mesh {
+  return new Mesh({ signalsUrl: signalhub, appName: 'webrtc-mesh' })
 }
