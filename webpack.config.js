@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const webpack = require('webpack')
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 module.exports = {
@@ -14,6 +15,13 @@ module.exports = {
     // libraryExport: 'default',
     library: 'WebRTCMesh',
   },
+  plugins: [
+    // fix "process is not defined" error:
+    // (do "npm install process" before running the build)
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
+  ],
   module: {
     rules: [
       {
