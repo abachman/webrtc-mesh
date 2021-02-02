@@ -1,4 +1,3 @@
-import { Message } from 'faye'
 import { SignalClient } from './../src/SignalClient'
 
 describe('SignalClient', () => {

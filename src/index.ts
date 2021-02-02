@@ -1,5 +1,3 @@
-import { Mesh } from './Mesh'
+console.log('is a msh msh')
 
-export default function start(signalhub: string): Mesh {
-  return new Mesh({ signalsUrl: signalhub, appName: 'webrtc-mesh' })
-}
+export * from './Mesh'

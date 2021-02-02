@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="./webrtc-mesh.js"></script>
+    <script>
+      const mesh = new WebRTCMesh.Mesh({
+        signalsUrl: 'http://house.chat:8080/signal',
+        appName: 'myweb',
+      })
+
+      mesh.on('peer', (peer) => {
+        console.log('got peer')
+      })
+    </script>
+  </head>
+</html>
