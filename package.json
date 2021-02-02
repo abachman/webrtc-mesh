@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack -w",
     "build": "npm run lint && webpack --config webpack.production.js",
-    "server": "node bin/server.js",
+    "signal-server": "node examples/server.js",
     "test": "jest",
     "lint": "eslint '*/**/*.ts' --quiet --fix"
   },
