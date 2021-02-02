@@ -13,6 +13,7 @@
 
       mesh.on('peer', (peer, id) => {
         console.log('<<<< got peer', id, peer)
+        check()
 
         const timer = setInterval(() => {
           peer.send(`beep ${Math.random() * 10000}`)
@@ -25,16 +26,41 @@
 
         peer.on('data', (data) => {
           console.log('data from', id, utf8decoder.decode(data))
+          const message = document.createElement('div')
+          message.innerText = `${id}: ${utf8decoder.decode(data)}`
+
+          document.getElementById('messages').prepend(message)
         })
       })
 
       mesh.on('disconnect', (peer, id) => {
         console.log('>>>> lost peer', id, peer)
+        check()
 
         if (peers[id]) clearInterval(peers[id].timer)
       })
 
       console.log('i am', mesh.me)
+
+      function check() {
+        document.getElementById(
+          'check',
+        ).innerText = `i have ${mesh.peers.length} peers`
+      }
     </script>
+
+    <style>
+      .container {
+        height: 420px;
+        overflow: scroll;
+      }
+    </style>
   </head>
+  <body>
+    <button onclick="check()">check</button>
+    <span id="check"></span>
+    <div class="container">
+      <div id="messages"></div>
+    </div>
+  </body>
 </html>

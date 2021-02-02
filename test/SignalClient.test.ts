@@ -7,27 +7,7 @@ describe('SignalClient', () => {
     clients.forEach((client) => client.close())
   })
 
-  it('can pass messages through faye', async () => {
-    const client = new SignalClient(
-      'http://localhost:8999/webrtc-mesh-test',
-      'test',
-    )
-    clients.push(client)
-    client.subscribe('/all')
-
-    const client2 = new SignalClient(
-      'http://localhost:8999/webrtc-mesh-test',
-      'test',
-    )
-    clients.push(client2)
-    await client2.publish('/all', { type: 'test' })
-
-    expect(client).not.toBeUndefined()
-    expect(client._messages.length).toBeGreaterThan(0)
-    expect(client._messages[0]).toEqual({ type: 'test' })
-  })
-
-  it('emits data after subscribing', async () => {
+  it('can pass data through subscriptions and publishing', async () => {
     const cb = jest.fn()
     const client = new SignalClient(
       'http://localhost:8999/webrtc-mesh-test',

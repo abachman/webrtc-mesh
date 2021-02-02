@@ -1,23 +1,20 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const webpack = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   devtool: 'source-map',
   entry: path.resolve('src/index.ts'),
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'webrtc-mesh.js',
-    // libraryTarget: 'umd',
-    // globalObject: 'this',
-    // libraryExport: 'default',
+    filename: 'webrtc-mesh.min.js',
     library: 'WebRTCMesh',
   },
   plugins: [
-    // fix "process is not defined" error:
-    // (do "npm install process" before running the build)
+    // fix "process is not defined" error
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
@@ -30,6 +27,10 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   },
   resolve: {
     modules: [path.resolve('node_modules'), path.resolve('src')],

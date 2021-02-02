@@ -12,7 +12,6 @@ export declare interface SignalClient {
 export class SignalClient extends EventEmitter {
   app: string
   faye: Client
-  _messages: Message[] = []
   subscriptions: Subscription[] = []
 
   constructor(url: string, app: string) {
