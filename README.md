@@ -20,9 +20,6 @@ Client code looks like:
     appName: 'myweb',
   })
 
-  const peers = {}
-  const utf8decoder = new TextDecoder()
-
   mesh.on('peer', (peer, id) => {
     console.log('<<<< got peer', id, peer)
   })
