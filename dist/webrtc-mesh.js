@@ -1,5 +1,14 @@
-var WebRTCMesh;WebRTCMesh =
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["WebRTCMesh"] = factory();
+	else
+		root["WebRTCMesh"] = factory();
+})(self, function() {
+return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/asap/browser-asap.js":
@@ -12471,4 +12480,5 @@ function wrappy (fn, cb) {
 /******/ 	return __webpack_require__("./src/index.ts");
 /******/ })()
 ;
+});
 //# sourceMappingURL=webrtc-mesh.js.map
