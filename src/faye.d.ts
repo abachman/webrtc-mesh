@@ -1,15 +1,15 @@
 declare module 'faye' {
   type Message = Record<string, unknown>
   type FayeClientOptions = {
-    interval: unknown
-    timeout: unknown
-    endpoints: unknown
-    proxy: unknown
-    retry: unknown
-    scheduler: unknown
-    websocketExtensions: unknown
-    tls: unknown
-    ca: unknown
+    interval?: unknown
+    timeout?: unknown
+    endpoints?: unknown
+    proxy?: unknown
+    retry?: unknown
+    scheduler?: unknown
+    websocketExtensions?: unknown
+    tls?: unknown
+    ca?: unknown
   }
 
   class Subscription {
