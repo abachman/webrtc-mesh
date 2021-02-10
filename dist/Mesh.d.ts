@@ -5,6 +5,7 @@ import SimplePeer from 'simple-peer';
 declare type MeshOptions = {
     signalsUrl: string;
     appName: string;
+    simplePeer?: SimplePeer.Options;
 };
 export declare interface Mesh {
     on(event: 'close', listener: () => void): this;
@@ -20,9 +21,10 @@ export declare class Mesh extends EventEmitter {
     };
     closed: boolean;
     maxPeers: number;
+    simplePeerOptions?: SimplePeer.Options;
     peers: SimplePeer.Instance[];
     remotes: Record<string, SimplePeer.Instance>;
-    constructor({ signalsUrl, appName }: MeshOptions);
+    constructor({ signalsUrl, appName, simplePeer }: MeshOptions);
     toChannel(id: string): string;
     join(): void;
     listen(): void;

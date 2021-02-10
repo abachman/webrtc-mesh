@@ -10,6 +10,7 @@ const debug = Debug('webrtc-mesh')
 type MeshOptions = {
   signalsUrl: string
   appName: string
+  simplePeer?: SimplePeer.Options
 }
 
 type ConnectMessage = {
@@ -41,10 +42,11 @@ export class Mesh extends EventEmitter {
   closed = false
   maxPeers = 15
 
+  simplePeerOptions?: SimplePeer.Options
   peers: SimplePeer.Instance[] = []
   remotes: Record<string, SimplePeer.Instance> = {}
 
-  constructor({ signalsUrl, appName }: MeshOptions) {
+  constructor({ signalsUrl, appName, simplePeer }: MeshOptions) {
     super()
 
     this.me = cuid()
@@ -60,6 +62,7 @@ export class Mesh extends EventEmitter {
     this.signals.subscribe(this.channels.me)
 
     debug('listening')
+    this.simplePeerOptions = simplePeer || {}
     this.listen()
     this.join()
   }
@@ -105,6 +108,7 @@ export class Mesh extends EventEmitter {
 
         debug('connecting to new peer (as initiator)')
         const peer = new SimplePeer({
+          ...this.simplePeerOptions,
           initiator: true,
         })
 
@@ -128,7 +132,9 @@ export class Mesh extends EventEmitter {
           }
 
           debug('connecting to new peer (as not initiator)', data.from)
-          peer = this.remotes[data.from] = new SimplePeer({})
+          peer = this.remotes[data.from] = new SimplePeer(
+            this.simplePeerOptions,
+          )
 
           // joining connection with peer who is initiating
           this.setup(this.remotes[data.from], data.from)
