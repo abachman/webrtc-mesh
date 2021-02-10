@@ -5,7 +5,7 @@
   "main": "dist/webrtc-mesh.js",
   "scripts": {
     "start": "webpack -w",
-    "build": "npm run lint && webpack --config webpack.production.js",
+    "build": "npm run lint && webpack && webpack --config webpack.production.js",
     "signal-server": "node examples/server.js",
     "test": "jest",
     "lint": "eslint '*/**/*.ts' --quiet --fix"

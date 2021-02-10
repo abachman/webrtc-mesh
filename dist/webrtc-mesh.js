@@ -7,7 +7,7 @@
 		exports["WebRTCMesh"] = factory();
 	else
 		root["WebRTCMesh"] = factory();
-})(self, function() {
+})(this, function() {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -12089,7 +12089,7 @@ const once_1 = __importDefault(__webpack_require__(/*! once */ "./node_modules/o
 const debug_1 = __importDefault(__webpack_require__(/*! debug */ "./node_modules/debug/src/browser.js"));
 const debug = debug_1.default('webrtc-mesh');
 class Mesh extends events_1.default {
-    constructor({ signalsUrl, appName }) {
+    constructor({ signalsUrl, appName, simplePeer }) {
         super();
         this.closed = false;
         this.maxPeers = 15;
@@ -12105,6 +12105,7 @@ class Mesh extends events_1.default {
         this.signals.subscribe(this.channels.all);
         this.signals.subscribe(this.channels.me);
         debug('listening');
+        this.simplePeerOptions = simplePeer || {};
         this.listen();
         this.join();
     }
@@ -12139,9 +12140,7 @@ class Mesh extends events_1.default {
                     return;
                 }
                 debug('connecting to new peer (as initiator)');
-                const peer = new simple_peer_1.default({
-                    initiator: true,
-                });
+                const peer = new simple_peer_1.default(Object.assign(Object.assign({}, this.simplePeerOptions), { initiator: true }));
                 // initiating connection with peer
                 this.setup(peer, data.from);
                 this.remotes[data.from] = peer;
@@ -12158,7 +12157,7 @@ class Mesh extends events_1.default {
                         return;
                     }
                     debug('connecting to new peer (as not initiator)', data.from);
-                    peer = this.remotes[data.from] = new simple_peer_1.default({});
+                    peer = this.remotes[data.from] = new simple_peer_1.default(this.simplePeerOptions);
                     // joining connection with peer who is initiating
                     this.setup(this.remotes[data.from], data.from);
                 }
