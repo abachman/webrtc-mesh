@@ -13,6 +13,7 @@ module.exports = {
     filename: 'webrtc-mesh.min.js',
     library: 'WebRTCMesh',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   plugins: [
     // fix "process is not defined" error
