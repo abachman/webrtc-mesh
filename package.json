@@ -2,7 +2,8 @@
   "name": "webrtc-mesh",
   "version": "1.0.0",
   "description": "A simple-peer based WebRTC mesh client for browsers.",
-  "main": "dist/webrtc-mesh.js",
+  "main": "dist/webrtc-mesh.node.js",
+  "browser": "dist/webrtc-mesh.js",
   "scripts": {
     "start": "webpack -w",
     "build": "npm run lint && webpack && webpack --config webpack.production.js",

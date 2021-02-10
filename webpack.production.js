@@ -4,7 +4,8 @@ const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-module.exports = {
+
+const browser = {
   mode: 'production',
   devtool: 'source-map',
   entry: path.resolve('src/index.ts'),
@@ -39,3 +40,15 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
 }
+
+const server = {
+  ...browser,
+  target: 'node',
+  output: {
+    ...browser.output,
+    filename: 'webrtc-mesh.node.js',
+  },
+  plugins: [],
+}
+
+module.exports = [browser, server]
